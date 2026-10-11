@@ -1,0 +1,3 @@
+node_modules/
+# dist/ SENGAJA tidak di-ignore: file hasil kompilasi harus ikut ke GitHub
+# karena HTML memanggil dist/*.js lewat Live Server.
