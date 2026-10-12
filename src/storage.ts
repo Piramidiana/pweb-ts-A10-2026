@@ -105,3 +105,40 @@ function seedDemoData(force: boolean = false): void {
   saveTickets(tickets);
   saveTicketCounters(counters);
 }
+
+function issueTicket(kode: string, prioritas: Priority): Ticket | null {
+  const queueType = getQueueTypes().find(
+    (type) => type.kode.toUpperCase() === kode.toUpperCase() && type.aktif
+  );
+
+  if (!queueType) {
+    alert("Jenis antrian tidak ditemukan atau sedang nonaktif!");
+    return null;
+  }
+
+  const tickets = getTickets();
+  const counters = getTicketCounters();
+  const nomor = (counters[queueType.kode] ?? 0) + 1;
+  counters[queueType.kode] = nomor;
+
+  const newTicket: Ticket = {
+    id: tickets.reduce((maxId, ticket) => Math.max(maxId, ticket.id), 0) + 1,
+    kode: queueType.kode,
+    nomor,
+    label: formatTicketLabel(queueType.kode, nomor),
+    prioritas,
+    status: "Menunggu",
+    createdAt: Date.now(),
+  };
+
+  tickets.push(newTicket);
+  saveTickets(tickets);
+  saveTicketCounters(counters);
+
+  return newTicket;
+}
+
+function resetQueue(): void {
+  saveTickets([]);
+  saveTicketCounters({});
+}

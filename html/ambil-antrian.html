@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambil Nomor Antrian</title>
+  <link rel="stylesheet" href="../css/ambil-antrian.css">
+  <script src="../dist/types.js" defer></script>
+  <script src="../dist/storage.js" defer></script>
+  <script src="../dist/ambil-antrian.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Antrian Tiket</h1>
+    <nav aria-label="Navigasi">
+      <a href="layar.html">Layar antrian</a>
+      <a href="login.html">Masuk petugas</a>
+    </nav>
+  </header>
+  <main>
+    <h2>Ambil nomor antrian</h2>
+    <p>Pilih layanan dan prioritas untuk mendapatkan nomor.</p>
+    <form id="form-issue-ticket">
+      <label for="select-queue-type">
+        Jenis antrian
+        <select id="select-queue-type" required></select>
+      </label>
+      <label for="select-priority">
+        Prioritas
+        <select id="select-priority" required>
+          <option value="Normal">Normal</option>
+          <option value="Lansia">Lansia</option>
+          <option value="Disabilitas">Disabilitas</option>
+          <option value="VIP">VIP</option>
+        </select>
+      </label>
+      <p id="queue-message" class="message" role="status"></p>
+      <button type="submit">Ambil nomor</button>
+    </form>
+    <output id="ticket-result" aria-live="polite"></output>
+  </main>
+</body>
+</html>

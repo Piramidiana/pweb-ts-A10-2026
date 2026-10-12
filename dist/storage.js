@@ -3,7 +3,7 @@ const STORAGE_KEYS = {
     session: "session",
     queueTypes: "queueTypes",
     tickets: "tickets",
-    ticketCounters: "ticketCounters", 
+    ticketCounters: "ticketCounters",
 };
 function readJSON(key, fallback) {
     const raw = localStorage.getItem(key);
@@ -13,27 +13,24 @@ function readJSON(key, fallback) {
         return JSON.parse(raw);
     }
     catch {
-        return fallback; 
+        return fallback;
     }
 }
 function writeJSON(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
-
 function getQueueTypes() {
     return readJSON(STORAGE_KEYS.queueTypes, []);
 }
 function saveQueueTypes(list) {
     writeJSON(STORAGE_KEYS.queueTypes, list);
 }
-
 function getTickets() {
     return readJSON(STORAGE_KEYS.tickets, []);
 }
 function saveTickets(list) {
     writeJSON(STORAGE_KEYS.tickets, list);
 }
-
 function getTicketCounters() {
     return readJSON(STORAGE_KEYS.ticketCounters, {});
 }
@@ -58,7 +55,6 @@ function seedDemoData(force = false) {
         { kode: "F", nama: "FARMASI", aktif: true },
         { kode: "P", nama: "PSIKOLOG", aktif: true },
     ];
-    
     const samples = [
         ["A", "Normal", "Dipanggil"],
         ["B", "Normal", "Menunggu"],
@@ -92,4 +88,32 @@ function seedDemoData(force = false) {
     saveQueueTypes(types);
     saveTickets(tickets);
     saveTicketCounters(counters);
+}
+function issueTicket(kode, prioritas) {
+    const queueType = getQueueTypes().find((type) => type.kode.toUpperCase() === kode.toUpperCase() && type.aktif);
+    if (!queueType) {
+        alert("Jenis antrian tidak ditemukan atau sedang nonaktif!");
+        return null;
+    }
+    const tickets = getTickets();
+    const counters = getTicketCounters();
+    const nomor = (counters[queueType.kode] ?? 0) + 1;
+    counters[queueType.kode] = nomor;
+    const newTicket = {
+        id: tickets.reduce((maxId, ticket) => Math.max(maxId, ticket.id), 0) + 1,
+        kode: queueType.kode,
+        nomor,
+        label: formatTicketLabel(queueType.kode, nomor),
+        prioritas,
+        status: "Menunggu",
+        createdAt: Date.now(),
+    };
+    tickets.push(newTicket);
+    saveTickets(tickets);
+    saveTicketCounters(counters);
+    return newTicket;
+}
+function resetQueue() {
+    saveTickets([]);
+    saveTicketCounters({});
 }

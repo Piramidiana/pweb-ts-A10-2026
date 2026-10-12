@@ -30,6 +30,17 @@ body {
     font-size:1.25rem; 
 }
 
+.topbar-nav {
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.topbar-nav a {
+    color:var(--ink);
+    font-size:.85rem;
+}
+
 .topbar-right { 
     display:flex; 
     align-items:center; 

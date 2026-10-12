@@ -1,5 +1,4 @@
 "use strict";
-
 const VALID_ROLES = ["admin", "moderator", "user"];
 function getSession() {
     const s = readJSON(STORAGE_KEYS.session, null);
@@ -17,11 +16,9 @@ function saveSession(session) {
 function clearSession() {
     localStorage.removeItem(STORAGE_KEYS.session);
 }
-
 function isAdminLike(role) {
     return role === "admin" || role === "moderator";
 }
-
 function requireAuth(options = {}) {
     const session = getSession();
     if (!session || (options.adminOnly === true && !isAdminLike(session.role))) {

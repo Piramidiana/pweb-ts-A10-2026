@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masuk - Antrian Tiket</title>
+  <link rel="stylesheet" href="../css/login.css">
+  <script src="../dist/storage.js" defer></script>
+  <script src="../dist/types.js" defer></script>
+  <script src="../dist/auth.js" defer></script>
+  <script src="../dist/login.js" defer></script>
+</head>
+<body>
+  <main class="login-card">
+    <h1>Masuk ke Antrian Tiket</h1>
+    <p class="intro">Masukkan nama dan pilih akses untuk membuka panel.</p>
+    <form id="form-login">
+      <label for="login-name">
+        Nama
+        <input id="login-name" type="text" autocomplete="name" required>
+      </label>
+      <label for="login-role">
+        Akses
+        <select id="login-role" required>
+          <option value="admin">Admin</option>
+          <option value="moderator">Moderator</option>
+          <option value="user">Petugas (Operator)</option>
+        </select>
+      </label>
+      <button type="submit">Masuk</button>
+    </form>
+    <a class="link-button" href="ambil-antrian.html">Lanjut ke kiosk pengunjung</a>
+    <p class="note">Mode demo tugas: pilihan akses disimpan di browser dan bukan autentikasi server.</p>
+  </main>
+</body>
+</html>
