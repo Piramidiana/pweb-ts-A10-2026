@@ -1,0 +1,145 @@
+:root { 
+    --bg:#f3f8f8; 
+    --ink:#0f172a; 
+    --muted:#64748b; 
+    --line:#e2e8f0; 
+    --accent:#f59300; 
+}
+
+* { 
+    box-sizing: border-box; 
+}
+
+body { 
+    margin:0; 
+    min-height:100vh; 
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif; 
+    background:var(--bg); 
+    color:var(--ink); 
+}
+
+.topbar { 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:flex-start; 
+    flex-wrap:wrap; 
+    gap:12px; 
+    padding:16px 24px; 
+}
+
+.topbar h1 { 
+    margin:0; 
+    font-size:1.25rem; 
+}
+
+.updated { 
+    margin:4px 0 0; 
+    font-size:.75rem; 
+    color:var(--muted); 
+}
+
+.nav { 
+    display:flex; 
+    gap:8px; 
+}
+
+.tab { 
+    font:inherit; 
+    font-size:.8rem; 
+    padding:6px 12px; 
+    border:1px solid var(--line); 
+    border-radius:8px; 
+    background:#fff; 
+    color:var(--ink); 
+    text-decoration:none; 
+    cursor:pointer; 
+}
+
+.tab-active { 
+    background:var(--ink); 
+    color:#fff; 
+    border-color:var(--ink); 
+}
+
+.screen-grid { 
+    display:grid; 
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); 
+    gap:16px; 
+    padding:0 24px 24px; 
+}
+
+.screen-card { 
+    display:flex; 
+    flex-direction:column; 
+    min-height:340px; 
+    background:#fff; 
+    border:1px solid var(--line); 
+    border-radius:12px; 
+}
+
+.screen-head { 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:center; 
+    padding:16px; 
+}
+
+.screen-name { 
+    margin:0; 
+    font-size:1rem; 
+}
+
+.screen-code { 
+    font-size:.7rem; 
+    padding:2px 8px; 
+    border-radius:6px; 
+    background:#eef2f3; 
+    color:var(--muted); 
+}
+
+.screen-body { 
+    flex:1; 
+    display:flex; 
+    flex-direction:column; 
+    justify-content:center; 
+    padding:0 16px; 
+    text-align:center; 
+}
+
+.badge { 
+    align-self:flex-start; 
+    font-size:.7rem; 
+    font-weight:700; 
+    color:var(--accent); 
+}
+
+.big-number { 
+    font-size:clamp(2.5rem, 5vw, 4rem); 
+    font-weight:800; 
+    text-align:left; 
+}
+
+.none-title { 
+    margin:0; 
+    font-size:.85rem; 
+    font-weight:600; 
+}
+
+.none-sub { 
+    margin:4px 0 0; 
+    font-size:.7rem; 
+    color:var(--muted); 
+}
+
+.screen-foot { 
+    padding:12px; 
+    text-align:center; 
+    font-size:.75rem; 
+    color:var(--muted); 
+    border-top:1px solid var(--line); 
+}
+
+.empty { 
+    color:var(--muted); 
+    padding:16px; 
+}
