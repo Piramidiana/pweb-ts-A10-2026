@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - Antrian Rumah Sakit</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      padding-bottom: 40px;
+    }
+    .navbar {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0f172a;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+    .nav-links a.active {
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .header-title h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+    .header-title p {
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-danger-outline {
+      background-color: transparent;
+      border-color: #fca5a5;
+      color: #ef4444;
+    }
+    .btn-danger-outline:hover {
+      background-color: #fef2f2;
+    }
+    .btn-outline {
+      background-color: #ffffff;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    .btn-outline:hover {
+      background-color: #f1f5f9;
+    }
+    .btn-primary {
+      background-color: #0f172a;
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background-color: #1e293b;
+    }
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 0.8rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #0f172a;
+    }
+    .form-inline {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .form-control {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .form-control:focus {
+      border-color: #0f172a;
+    }
+    .input-code {
+      width: 70px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .input-flex {
+      flex: 1;
+    }
+    select.form-control {
+      background-color: #fff;
+    }
+    .type-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .type-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .type-item:last-child {
+      border-bottom: none;
+    }
+    .type-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .type-name {
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .type-sub {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+    .type-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .ticket-group {
+      margin-top: 20px;
+    }
+    .group-header {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .ticket-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .ticket-label {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+    .badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .badge-normal { background: #e2e8f0; color: #475569; }
+    .badge-lansia { background: #feefc3; color: #b45309; }
+    .badge-disabilitas { background: #e0e7ff; color: #3730a3; }
+    .badge-vip { background: #fce7f3; color: #9d174d; }
+    .badge-status {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+    .badge-status.dipanggil { color: #2563eb; font-weight: 600; }
+    .badge-status.selesai { color: #16a34a; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-brand">Antrian Tiket</div>
+    <ul class="nav-links">
+      <li><a href="#">Beranda</a></li>
+      <li><a href="ambil-antrian.html">Kiosk</a></li>
+      <li><a href="operator.html">Operator</a></li>
+      <li><a href="index.html" class="active">Dashboard</a></li>
+    </ul>
+    <div>
+      <span id="user-greeting" style="font-size: 0.9rem; font-weight: 500; margin-right: 12px;">Admin</span>
+      <button id="btn-logout-nav" class="btn btn-outline btn-sm">Keluar</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="header-section">
+      <div class="header-title">
+        <h1>Dashboard Admin</h1>
+        <p>Reset setiap hari agar penomoran antrian mulai dari awal.</p>
+      </div>
+      <div class="header-actions">
+        <button id="btn-reset-queue" class="btn btn-danger-outline">Reset Antrian</button>
+        <button id="btn-logout" class="btn btn-outline">Keluar</button>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Kolom Kiri: Manajemen Jenis Antrian -->
+      <div class="card">
+        <h2 class="card-title">Jenis antrian</h2>
+        <form id="form-add-type" class="form-inline">
+          <input type="text" id="input-kode" class="form-control input-code" placeholder="Kode" maxlength="1" required>
+          <input type="text" id="input-nama" class="form-control input-flex" placeholder="Contoh: Farmasi" required>
+          <button type="submit" class="btn btn-primary">Tambah</button>
+        </form>
+
+        <div id="queue-types-list" class="type-list"></div>
+      </div>
+
+      <!-- Kolom Kanan: Terbitkan Tiket Manual & Daftar Tiket -->
+      <div class="card">
+        <h2 class="card-title">Terbitkan tiket</h2>
+        <form id="form-issue-ticket" class="form-inline">
+          <select id="select-queue-type" class="form-control input-flex" required>
+            <option value="">Pilih jenis antrian</option>
+          </select>
+          <select id="select-priority" class="form-control" required>
+            <option value="Normal">Normal</option>
+            <option value="Lansia">Lansia</option>
+            <option value="Disabilitas">Disabilitas</option>
+            <option value="VIP">VIP</option>
+          </select>
+          <button type="submit" class="btn btn-outline">Terbitkan</button>
+        </form>
+
+        <div id="tickets-grouped-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script pemanggilan sesuai urutan (Shared dulu baru Halaman) -->
+  <script src="dist/storage.js" defer></script>
+  <script src="dist/auth.js" defer></script>
+  <script src="dist/dashboard.js" defer></script>
+</body>
+</html>
