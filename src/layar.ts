@@ -1,5 +1,4 @@
 (function () {
-  // Halaman publik: tanpa auth guard.
   const grid = document.getElementById("screen-grid") as HTMLElement | null;
   const updatedEl = document.getElementById("updated-at");
   const fsBtn = document.getElementById("btn-fullscreen") as HTMLButtonElement | null;
@@ -7,7 +6,6 @@
   if (!grid) return;
 
   let soundOn = false;
-  // label tiket terakhir yang dipanggil per kode (untuk deteksi panggilan baru)
   let lastCalled: Record<string, string> | null = null;
 
   function el<K extends keyof HTMLElementTagNameMap>(
@@ -67,7 +65,6 @@
       types.forEach((q) => grid!.appendChild(buildCard(q, tickets)));
     }
 
-    // deteksi nomor yang baru dipanggil -> suara (lewati render pertama)
     const now: Record<string, string> = {};
     types.forEach((q) => {
       const cur = tickets.find((t) => t.kode === q.kode && t.status === "Dipanggil");
@@ -86,8 +83,6 @@
       updatedEl.textContent = `Diperbarui ${new Date().toLocaleTimeString("id-ID")}`;
     }
   }
-
-  // ---------- Layar penuh (Fullscreen API) ----------
 
   function updateFsLabel(): void {
     if (fsBtn) {

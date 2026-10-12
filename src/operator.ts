@@ -1,9 +1,7 @@
 (function () {
-  // Auth guard: cukup login (admin / moderator / user boleh masuk)
   const session = requireAuth();
   if (!session) return;
 
-  // Urutan prioritas: makin besar makin didahulukan (Normal paling bawah)
   const PRIORITY_RANK: Record<Priority, number> = {
     VIP: 3,
     Disabilitas: 2,
@@ -11,7 +9,6 @@
     Normal: 0,
   };
 
-  // Urutkan tiket: prioritas tinggi dulu, jika sama -> yang lebih dulu dibuat (FIFO)
   function sortByPriority(list: Ticket[]): Ticket[] {
     return [...list].sort((a, b) => {
       const diff = PRIORITY_RANK[b.prioritas] - PRIORITY_RANK[a.prioritas];
@@ -28,8 +25,6 @@
   function currentOf(kode: string, tickets: Ticket[]): Ticket | undefined {
     return tickets.find((t) => t.kode === kode && t.status === "Dipanggil");
   }
-
-  // ---------- Aksi operator (selalu baca data terbaru dari Local Storage) ----------
 
   function callNext(kode: string): void {
     const tickets = getTickets();
@@ -61,7 +56,6 @@
     render();
   }
 
-  // ---------- Render ----------
 
   function el<K extends keyof HTMLElementTagNameMap>(
     tag: K,
@@ -152,7 +146,6 @@
     types.forEach((q) => grid.appendChild(buildCard(q, tickets)));
   }
 
-  // ---------- Init ----------
 
   const userEl = document.getElementById("user-info");
   if (userEl) userEl.textContent = `${session.firstName} (${session.role})`;
