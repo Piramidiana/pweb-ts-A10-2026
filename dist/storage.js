@@ -117,3 +117,7 @@ function resetQueue() {
     saveTickets([]);
     saveTicketCounters({});
 }
+
+if (localStorage.getItem(STORAGE_KEYS.queueTypes) === null) {
+    seedDemoData();
+}

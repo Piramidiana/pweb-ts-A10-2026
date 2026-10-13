@@ -1,5 +1,9 @@
 "use strict";
 (function () {
+    const session = requireAuth();
+    if (!session)
+        return;
+    initSessionUI(session);
     const grid = document.getElementById("screen-grid");
     const updatedEl = document.getElementById("updated-at");
     const fsBtn = document.getElementById("btn-fullscreen");

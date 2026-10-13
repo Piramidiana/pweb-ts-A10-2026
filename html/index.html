@@ -4,69 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin - Antrian Rumah Sakit</title>
+  <link rel="stylesheet" href="../css/common.css">
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    body {
-      background-color: #f8fafc;
-      color: #1e293b;
-      padding-bottom: 40px;
-    }
-    .navbar {
-      background-color: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-      padding: 16px 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #0f172a;
-    }
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: #64748b;
-      font-size: 0.95rem;
-    }
-    .nav-links a.active {
-      color: #0f172a;
-      font-weight: 600;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 32px auto;
-      padding: 0 24px;
-    }
-    .header-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 24px;
-    }
-    .header-title h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 6px;
-    }
-    .header-title p {
-      color: #64748b;
-      font-size: 0.95rem;
-    }
-    .header-actions {
-      display: flex;
-      gap: 12px;
     }
     .btn {
       padding: 8px 16px;
@@ -225,33 +169,33 @@
     }
     .badge-status.dipanggil { color: #2563eb; font-weight: 600; }
     .badge-status.selesai { color: #16a34a; font-weight: 600; }
+    .badge-status.dilewati { color: #dc2626; font-weight: 600; }
   </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="navbar-brand">Antrian Tiket</div>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Beranda</a></li>
-      <li><a href="ambil-antrian.html">Kiosk</a></li>
-      <li><a href="layar.html">Layar Antrian</a></li>
-      <li><a href="operator.html">Operator</a></li>
-    </ul>
-    <div>
-      <span id="user-greeting" style="font-size: 0.9rem; font-weight: 500; margin-right: 12px;">Admin</span>
-      <button id="btn-logout-nav" class="btn btn-outline btn-sm">Keluar</button>
+  <header class="site-header">
+    <span class="brand">Antrian Tiket</span>
+    <nav class="site-nav" aria-label="Navigasi utama">
+      <a href="index.html" aria-current="page" data-admin-only>Dashboard</a>
+      <a href="operator.html" data-admin-only>Operator</a>
+      <a href="ambil-antrian.html">Ambil Nomor</a>
+      <a href="layar.html">Layar Antrian</a>
+    </nav>
+    <div class="site-user">
+      <span id="user-info" class="user-info"></span>
+      <button id="btn-logout" type="button" class="btn-logout">Keluar</button>
     </div>
-  </nav>
+  </header>
 
-  <div class="container">
-    <div class="header-section">
-      <div class="header-title">
+  <main class="page">
+    <div class="page-head">
+      <div>
         <h1>Dashboard Admin</h1>
         <p>Reset setiap hari agar penomoran antrian mulai dari awal.</p>
       </div>
-      <div class="header-actions">
+      <div class="page-actions">
         <button id="btn-reset-queue" class="btn btn-danger-outline">Reset Antrian</button>
-        <button id="btn-logout" class="btn btn-outline">Keluar</button>
       </div>
     </div>
 
@@ -287,7 +231,7 @@
         <div id="tickets-grouped-list"></div>
       </div>
     </div>
-  </div>
+  </main>
 
   <!-- Script pemanggilan sesuai urutan (Shared dulu baru Halaman) -->
   <script src="../dist/storage.js" defer></script>

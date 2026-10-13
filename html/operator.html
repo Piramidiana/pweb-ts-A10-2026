@@ -4,25 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel Operator</title>
+  <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/operator.css">
   <script src="../dist/storage.js" defer></script>
   <script src="../dist/auth.js" defer></script>
   <script src="../dist/operator.js" defer></script>
 </head>
 <body>
-  <header class="topbar">
-    <h1>Panel Operator</h1>
-    <nav class="topbar-nav" aria-label="Navigasi">
-      <a href="index.html">Dashboard</a>
-      <a href="layar.html">Layar antrian</a>
-      <a href="ambil-antrian.html">Kiosk</a>
+  <header class="site-header">
+    <span class="brand">Antrian Tiket</span>
+    <nav class="site-nav" aria-label="Navigasi utama">
+      <a href="index.html" data-admin-only>Dashboard</a>
+      <a href="operator.html" aria-current="page" data-admin-only>Operator</a>
+      <a href="ambil-antrian.html">Ambil Nomor</a>
+      <a href="layar.html">Layar Antrian</a>
     </nav>
-    <div class="topbar-right">
+    <div class="site-user">
       <span id="user-info" class="user-info"></span>
-      <button id="btn-logout" type="button" class="btn btn-outline">Keluar</button>
+      <button id="btn-logout" type="button" class="btn-logout">Keluar</button>
     </div>
   </header>
 
-  <main id="queue-grid" class="grid"></main>
+  <main class="page">
+    <div class="page-head">
+      <div>
+        <h1>Panel Operator</h1>
+        <p>Panggil tiket sesuai urutan prioritas.</p>
+      </div>
+    </div>
+    <div id="queue-grid" class="grid"></div>
+  </main>
 </body>
 </html>

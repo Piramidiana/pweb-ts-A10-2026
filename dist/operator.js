@@ -1,6 +1,6 @@
 "use strict";
 (function () {
-    const session = requireAuth();
+    const session = requireAuth({ adminOnly: true });
     if (!session)
         return;
     const PRIORITY_RANK = {

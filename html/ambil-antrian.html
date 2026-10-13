@@ -4,23 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ambil Nomor Antrian</title>
+  <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/ambil-antrian.css">
   <script src="../dist/types.js" defer></script>
   <script src="../dist/storage.js" defer></script>
+  <script src="../dist/auth.js" defer></script>
   <script src="../dist/ambil-antrian.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Antrian Tiket</h1>
-    <nav aria-label="Navigasi">
-      <a href="layar.html">Layar antrian</a>
-      <a href="login.html">Masuk petugas</a>
+  <header class="site-header">
+    <span class="brand">Antrian Tiket</span>
+    <nav class="site-nav" aria-label="Navigasi utama">
+      <a href="index.html" data-admin-only>Dashboard</a>
+      <a href="operator.html" data-admin-only>Operator</a>
+      <a href="ambil-antrian.html" aria-current="page">Ambil Nomor</a>
+      <a href="layar.html">Layar Antrian</a>
     </nav>
+    <div class="site-user">
+      <span id="user-info" class="user-info"></span>
+      <button id="btn-logout" type="button" class="btn-logout">Keluar</button>
+    </div>
   </header>
-  <main>
-    <h2>Ambil nomor antrian</h2>
-    <p>Pilih layanan dan prioritas untuk mendapatkan nomor.</p>
-    <form id="form-issue-ticket">
+
+  <main class="page">
+    <div class="page-head">
+      <div>
+        <h1>Ambil Nomor Antrian</h1>
+        <p>Pilih layanan dan prioritas untuk mendapatkan nomor.</p>
+      </div>
+    </div>
+    <form id="form-issue-ticket" class="form-card">
       <label for="select-queue-type">
         Jenis antrian
         <select id="select-queue-type" required></select>
@@ -37,7 +50,7 @@
       <p id="queue-message" class="message" role="status"></p>
       <button type="submit">Ambil nomor</button>
     </form>
-    <output id="ticket-result" aria-live="polite"></output>
+    <output id="ticket-result" class="ticket-result" aria-live="polite"></output>
   </main>
 </body>
 </html>

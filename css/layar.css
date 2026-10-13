@@ -1,71 +1,23 @@
-:root { 
-    --bg:#f3f8f8; 
-    --ink:#0f172a; 
-    --muted:#64748b; 
-    --line:#e2e8f0; 
-    --accent:#f59300; 
+.btn-tool {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
 }
 
-* { 
-    box-sizing: border-box; 
-}
-
-body { 
-    margin:0; 
-    min-height:100vh; 
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif; 
-    background:var(--bg); 
-    color:var(--ink); 
-}
-
-.topbar { 
-    display:flex; 
-    justify-content:space-between; 
-    align-items:flex-start; 
-    flex-wrap:wrap; 
-    gap:12px; 
-    padding:16px 24px; 
-}
-
-.topbar h1 { 
-    margin:0; 
-    font-size:1.25rem; 
-}
-
-.updated { 
-    margin:4px 0 0; 
-    font-size:.75rem; 
-    color:var(--muted); 
-}
-
-.nav { 
-    display:flex; 
-    gap:8px; 
-}
-
-.tab { 
-    font:inherit; 
-    font-size:.8rem; 
-    padding:6px 12px; 
-    border:1px solid var(--line); 
-    border-radius:8px; 
-    background:#fff; 
-    color:var(--ink); 
-    text-decoration:none; 
-    cursor:pointer; 
-}
-
-.tab-active { 
-    background:var(--ink); 
-    color:#fff; 
-    border-color:var(--ink); 
+.btn-tool:hover {
+  background: #f1f5f9;
 }
 
 .screen-grid { 
     display:grid; 
     grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); 
     gap:16px; 
-    padding:0 24px 24px; 
+    padding:0; 
 }
 
 .screen-card { 

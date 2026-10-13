@@ -31,3 +31,22 @@ function logout() {
     clearSession();
     window.location.href = "login.html";
 }
+
+function homeFor(role) {
+    return isAdminLike(role) ? "index.html" : "ambil-antrian.html";
+}
+
+function applyRoleVisibility(session) {
+    const admin = isAdminLike(session.role);
+    document.querySelectorAll("[data-admin-only]").forEach((node) => {
+        node.style.display = admin ? "" : "none";
+    });
+}
+
+function initSessionUI(session) {
+    const userEl = document.getElementById("user-info");
+    if (userEl)
+        userEl.textContent = `${session.firstName} (${session.role})`;
+    document.getElementById("btn-logout")?.addEventListener("click", logout);
+    applyRoleVisibility(session);
+}
