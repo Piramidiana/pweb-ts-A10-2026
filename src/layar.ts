@@ -1,4 +1,9 @@
 (function () {
+  // Revisi: layar wajib login (semua role)
+  const session = requireAuth();
+  if (!session) return;
+  initSessionUI(session);
+
   const grid = document.getElementById("screen-grid") as HTMLElement | null;
   const updatedEl = document.getElementById("updated-at");
   const fsBtn = document.getElementById("btn-fullscreen") as HTMLButtonElement | null;

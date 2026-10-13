@@ -142,3 +142,8 @@ function resetQueue(): void {
   saveTickets([]);
   saveTicketCounters({});
 }
+
+// Isi data contoh saat pertama kali aplikasi dibuka
+if (localStorage.getItem(STORAGE_KEYS.queueTypes) === null) {
+  seedDemoData();
+}

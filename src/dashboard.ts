@@ -3,10 +3,16 @@
   const session = requireAuth({ adminOnly: true });
   if (!session) return; // Menghentikan script jika belum login/bukan admin
 
+  // Escape teks input admin sebelum masuk innerHTML (mencegah XSS)
+  function esc(text: string): string {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
   // 2. Elemen DOM
-  const userGreeting = document.getElementById("user-greeting") as HTMLElement | null;
-  const btnLogoutNav = document.getElementById("btn-logout-nav") as HTMLButtonElement | null;
-  const btnLogout = document.getElementById("btn-logout") as HTMLButtonElement | null;
   const btnResetQueue = document.getElementById("btn-reset-queue") as HTMLButtonElement | null;
 
   const formAddType = document.getElementById("form-add-type") as HTMLFormElement | null;
@@ -20,12 +26,7 @@
   const ticketsGroupedList = document.getElementById("tickets-grouped-list") as HTMLElement | null;
 
   // 3. Inisialisasi Tampilan User
-  if (userGreeting) {
-    userGreeting.textContent = `${session.firstName} (${session.role})`;
-  }
-
-  btnLogoutNav?.addEventListener("click", logout);
-  btnLogout?.addEventListener("click", logout);
+  initSessionUI(session);
 
   // 4. Render Dashboard Utama
   function renderDashboard(): void {
@@ -56,7 +57,7 @@
       item.className = "type-item";
       item.innerHTML = `
         <div class="type-info">
-          <span class="type-name">${type.nama} (${type.kode})</span>
+          <span class="type-name">${esc(type.nama)} (${esc(type.kode)})</span>
           <span class="type-sub">${waitingCount} menunggu</span>
         </div>
         <div class="type-actions">
@@ -135,7 +136,7 @@
       }
 
       groupDiv.innerHTML = `
-        <div class="group-header">${type.nama}</div>
+        <div class="group-header">${esc(type.nama)}</div>
         ${ticketsHtml}
       `;
 
@@ -227,6 +228,7 @@
     }
   });
 
-  // Render awal saat halaman dimuat
+  // Render awal saat halaman dimuat + ikut update jika tab lain mengubah data
   renderDashboard();
+  window.addEventListener("storage", renderDashboard);
 })();
