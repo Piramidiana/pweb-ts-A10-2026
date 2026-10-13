@@ -1,5 +1,3 @@
-
-
 const STORAGE_KEYS = {
   session: "session",
   queueTypes: "queueTypes",
@@ -21,14 +19,12 @@ function writeJSON(key: string, value: unknown): void {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-
 function getQueueTypes(): QueueType[] {
   return readJSON<QueueType[]>(STORAGE_KEYS.queueTypes, []);
 }
 function saveQueueTypes(list: QueueType[]): void {
   writeJSON(STORAGE_KEYS.queueTypes, list);
 }
-
 
 function getTickets(): Ticket[] {
   return readJSON<Ticket[]>(STORAGE_KEYS.tickets, []);
@@ -44,7 +40,6 @@ function saveTicketCounters(counters: Record<string, number>): void {
   writeJSON(STORAGE_KEYS.ticketCounters, counters);
 }
 
-
 function formatTicketLabel(kode: string, nomor: number): string {
   return `${kode}-${String(nomor).padStart(3, "0")}`;
 }
@@ -53,7 +48,6 @@ function watchStorage(callback: () => void, intervalMs: number = 2000): void {
   window.addEventListener("storage", callback);
   window.setInterval(callback, intervalMs);
 }
-
 
 function seedDemoData(force: boolean = false): void {
   if (!force && getQueueTypes().length > 0) return;
@@ -66,7 +60,6 @@ function seedDemoData(force: boolean = false): void {
     { kode: "F", nama: "FARMASI", aktif: true },
     { kode: "P", nama: "PSIKOLOG", aktif: true },
   ];
-
 
   const samples: Array<[string, Priority, TicketStatus]> = [
     ["A", "Normal", "Dipanggil"],
@@ -143,7 +136,6 @@ function resetQueue(): void {
   saveTicketCounters({});
 }
 
-// Isi data contoh saat pertama kali aplikasi dibuka
 if (localStorage.getItem(STORAGE_KEYS.queueTypes) === null) {
   seedDemoData();
 }

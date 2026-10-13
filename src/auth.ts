@@ -1,5 +1,3 @@
-
-
 const VALID_ROLES: Role[] = ["admin", "moderator", "user"];
 
 function getSession(): Session | null {
@@ -41,12 +39,10 @@ function logout(): void {
   window.location.href = "login.html";
 }
 
-// Halaman awal sesuai role: admin/moderator → dashboard, user → ambil antrian
 function homeFor(role: Role): string {
   return isAdminLike(role) ? "index.html" : "ambil-antrian.html";
 }
 
-// Sembunyikan menu khusus admin (Dashboard, Operator) untuk role user
 function applyRoleVisibility(session: Session): void {
   const admin = isAdminLike(session.role);
   document.querySelectorAll<HTMLElement>("[data-admin-only]").forEach((node) => {
@@ -54,7 +50,6 @@ function applyRoleVisibility(session: Session): void {
   });
 }
 
-// Tampilkan nama + role di navbar dan pasang tombol logout
 function initSessionUI(session: Session): void {
   const userEl = document.getElementById("user-info");
   if (userEl) userEl.textContent = `${session.firstName} (${session.role})`;

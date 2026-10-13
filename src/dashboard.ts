@@ -1,9 +1,7 @@
 (() => {
-  // 1. Auth Guard (Khusus Admin & Moderator)
   const session = requireAuth({ adminOnly: true });
-  if (!session) return; // Menghentikan script jika belum login/bukan admin
+  if (!session) return;
 
-  // Escape teks input admin sebelum masuk innerHTML (mencegah XSS)
   function esc(text: string): string {
     return text
       .replace(/&/g, "&amp;")
@@ -12,7 +10,6 @@
       .replace(/"/g, "&quot;");
   }
 
-  // 2. Elemen DOM
   const btnResetQueue = document.getElementById("btn-reset-queue") as HTMLButtonElement | null;
 
   const formAddType = document.getElementById("form-add-type") as HTMLFormElement | null;
@@ -25,10 +22,8 @@
   const selectPriority = document.getElementById("select-priority") as HTMLSelectElement | null;
   const ticketsGroupedList = document.getElementById("tickets-grouped-list") as HTMLElement | null;
 
-  // 3. Inisialisasi Tampilan User
   initSessionUI(session);
 
-  // 4. Render Dashboard Utama
   function renderDashboard(): void {
     const queueTypes = getQueueTypes();
     const tickets = getTickets();
@@ -38,7 +33,6 @@
     renderTicketsGrouped(queueTypes, tickets);
   }
 
-  // Render Daftar Jenis Antrian (Kolom Kiri)
   function renderQueueTypes(types: QueueType[], tickets: Ticket[]): void {
     if (!queueTypesList) return;
     queueTypesList.innerHTML = "";
@@ -82,12 +76,10 @@
     });
   }
 
-  // Render Dropdown Pilihan Jenis Antrian
   function renderSelectQueueTypes(types: QueueType[]): void {
     if (!selectQueueType) return;
     selectQueueType.innerHTML = `<option value="">Pilih jenis antrian</option>`;
 
-    // Hanya jenis antrian yang AKTIF yang dapat dipilih
     types
       .filter((t) => t.aktif)
       .forEach((t) => {
@@ -98,7 +90,6 @@
       });
   }
 
-  // Render List Tiket Terbit Per Jenis Antrian (Kolom Kanan)
   function renderTicketsGrouped(types: QueueType[], tickets: Ticket[]): void {
     if (!ticketsGroupedList) return;
     ticketsGroupedList.innerHTML = "";
@@ -118,7 +109,7 @@
       if (typeTickets.length === 0) {
         ticketsHtml = `<p style="font-size: 0.85rem; color: #94a3b8; font-style: italic;">Belum ada tiket terbit.</p>`;
       } else {
-        const sorted = [...typeTickets].reverse(); // Tiket terbaru di atas
+        const sorted = [...typeTickets].reverse();
         ticketsHtml = sorted
           .map((t) => {
             const priorityClass = `badge-${t.prioritas.toLowerCase()}`;
@@ -144,9 +135,6 @@
     });
   }
 
-  // 5. Form Event Handlers & Logika CRUD
-
-  // Tambah Jenis Antrian Baru
   formAddType?.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!inputKode || !inputNama) return;
@@ -154,7 +142,6 @@
     const kode = inputKode.value.trim().toUpperCase();
     const nama = inputNama.value.trim();
 
-    // Validasi kode: 1 huruf kapital
     if (!/^[A-Z]$/.test(kode)) {
       alert("Kode harus berupa 1 huruf kapital (misal: 'C')!");
       return;
@@ -162,7 +149,6 @@
 
     const currentTypes = getQueueTypes();
 
-    // Validasi duplikasi Kode / Nama (case-insensitive)
     if (currentTypes.some((t) => t.kode.toUpperCase() === kode)) {
       alert(`Kode '${kode}' sudah digunakan!`);
       return;
@@ -181,7 +167,6 @@
     renderDashboard();
   });
 
-  // Toggle Status Aktif/Nonaktif
   function toggleQueueTypeStatus(kode: string): void {
     const currentTypes = getQueueTypes();
     const target = currentTypes.find((t) => t.kode === kode);
@@ -192,7 +177,6 @@
     }
   }
 
-  // Hapus Jenis Antrian
   function deleteQueueType(kode: string): void {
     if (confirm(`Apakah Anda yakin ingin menghapus jenis antrian ${kode}?`)) {
       const currentTypes = getQueueTypes().filter((t) => t.kode !== kode);
@@ -201,7 +185,6 @@
     }
   }
 
-  // Terbitkan Tiket Manual
   formIssueTicket?.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!selectQueueType || !selectPriority) return;
@@ -220,7 +203,6 @@
     }
   });
 
-  // Reset Antrian
   btnResetQueue?.addEventListener("click", () => {
     if (confirm("Reset seluruh antrian dari awal? Seluruh tiket akan dihapus.")) {
       resetQueue();
@@ -228,7 +210,6 @@
     }
   });
 
-  // Render awal saat halaman dimuat + ikut update jika tab lain mengubah data
   renderDashboard();
   window.addEventListener("storage", renderDashboard);
 })();

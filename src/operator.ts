@@ -56,7 +56,6 @@
     render();
   }
 
-
   function el<K extends keyof HTMLElementTagNameMap>(
     tag: K,
     className?: string,
@@ -145,7 +144,6 @@
     }
     types.forEach((q) => grid.appendChild(buildCard(q, tickets)));
   }
-
 
   const userEl = document.getElementById("user-info");
   if (userEl) userEl.textContent = `${session.firstName} (${session.role})`;

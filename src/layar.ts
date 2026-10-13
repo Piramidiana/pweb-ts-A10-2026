@@ -1,5 +1,4 @@
 (function () {
-  // Revisi: layar wajib login (semua role)
   const session = requireAuth();
   if (!session) return;
   initSessionUI(session);

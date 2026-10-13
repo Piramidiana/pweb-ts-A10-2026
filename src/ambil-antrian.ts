@@ -1,5 +1,4 @@
 (() => {
-  // Revisi: ambil antrian wajib login (semua role)
   const session = requireAuth();
   if (!session) return;
   initSessionUI(session);
@@ -39,7 +38,6 @@
     const ticket = issueTicket(queueTypeSelect.value, prioritySelect.value as Priority);
     if (!ticket) return;
 
-    // reset dulu, baru tampilkan hasil (reset() juga mengosongkan <output>)
     ticketForm.reset();
     ticketResult.value = `Nomor antrian Anda: ${ticket.label}`;
   });

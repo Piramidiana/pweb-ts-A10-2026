@@ -7,7 +7,6 @@
   const submitBtn = document.getElementById("btn-login") as HTMLButtonElement | null;
   const errorBox = document.getElementById("login-error") as HTMLElement | null;
 
-  // Bentuk respons dari dummyjson
   interface LoginResponse {
     id?: number;
     firstName?: string;
@@ -21,7 +20,6 @@
     role?: string;
   }
 
-  // Sudah login? langsung arahkan ke halaman sesuai role
   const existing = getSession();
   if (existing) {
     window.location.replace(homeFor(existing.role));
@@ -42,8 +40,6 @@
     return typeof value === "string" && VALID_ROLES.includes(value as Role);
   }
 
-  // Respons /auth/login tidak selalu berisi role, jadi ambil dari /auth/me
-  // (atau /users/:id sebagai cadangan)
   async function resolveRole(data: LoginResponse, token: string): Promise<string | undefined> {
     if (data.role) return data.role;
 
